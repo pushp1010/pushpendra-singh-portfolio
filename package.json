@@ -7,9 +7,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/pushpendra-singh-portfolio.git"
+    "url": "https://github.com/pushp1010/pushpendra-singh-portfolio.git"
   },
-  "homepage": "https://YOUR_USERNAME.github.io/pushpendra-singh-portfolio",
+  "homepage": "https://pushp1010.github.io/pushpendra-singh-portfolio",
   "scripts": {
     "install": "cd frontend && yarn install",
     "start": "cd frontend && yarn start",
