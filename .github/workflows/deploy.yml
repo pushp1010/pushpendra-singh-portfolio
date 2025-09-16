@@ -1,12 +1,16 @@
-name: Deploy Portfolio to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     
     steps:
     - name: Checkout
@@ -17,28 +21,24 @@ jobs:
       with:
         node-version: '18'
 
-    - name: Clean lock files
-      run: |
-        rm -f package-lock.json
-        rm -f yarn.lock
-        rm -f frontend/package-lock.json
-        rm -f frontend/yarn.lock
-
     - name: Install dependencies
       run: |
         cd frontend
         npm install
 
-    - name: Build project
+    - name: Build
       run: |
         cd frontend
         npm run build
-      env:
-        CI: false
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: ./frontend/build
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./frontend/build
+      id: deployment
+      uses: actions/deploy-pages@v2
